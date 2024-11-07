@@ -1,0 +1,55 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum} % For dummy text
+\usepackage{titlesec} % For controlling section formatting
+
+\title{Verteilte Systeme - Blackout}
+\author{Axel Walz, Tarek Bürner, David Langner}
+\date{\today}
+
+% Set each section to start on a new page
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}
+
+\begin{document}
+
+\maketitle
+
+
+\newpage % Start the table of contents on a new page
+\tableofcontents
+\newpage % After the table of contents, start a new page
+
+\section{Einführung Blackout}
+Das Buch "Blackout" von Marc Elsberg beschreibt ein fiktives Szenario, in dem ein großflächiger Stromausfall Europa und Nordamerika lahmlegt. Die Geschichte beginnt mit dem plötzlichen Zusammenbruch des Stromnetzes, der durch einen koordinierten Cyberangriff auf die kritische Infrastruktur verursacht wird. Dieser Angriff zeigt die Verwundbarkeit moderner, stark vernetzter und verteilter Systeme.
+
+Im Kontext verteilter Systeme beleuchtet das Buch mehrere wichtige Aspekte. Es zeigt, wie anfällig verteilte Systeme für Cyberangriffe sind, indem die Angreifer Schwachstellen in der Software und den Kommunikationsprotokollen der Stromnetze ausnutzen, um eine Kettenreaktion auszulösen, die zu einem großflächigen Blackout führt. Dies unterstreicht die Notwendigkeit robuster Sicherheitsmaßnahmen und regelmäßiger Sicherheitsüberprüfungen in verteilten Systemen.
+
+Ein zentrales Thema des Buches ist die Bedeutung von Redundanz und Fehlertoleranz in verteilten Systemen. Der Ausfall eines Teils des Stromnetzes sollte nicht zum Zusammenbruch des gesamten Systems führen. Das Buch zeigt jedoch, dass viele Systeme nicht ausreichend redundant ausgelegt sind, was zu katastrophalen Folgen führen kann.
+
+Die Koordination und Kommunikation zwischen verschiedenen Teilen des Stromnetzes sind entscheidend für die Stabilität und Wiederherstellung des Systems. Das Buch beschreibt, wie Kommunikationsausfälle und mangelnde Koordination die Situation verschlimmern und die Wiederherstellung verzögern. Dies betont die Notwendigkeit effektiver Kommunikationsprotokolle und -strategien in verteilten Systemen.
+
+Schließlich behandelt das Buch die Herausforderungen der Wiederherstellung nach einem großflächigen Ausfall. Die Resilienz eines verteilten Systems hängt von seiner Fähigkeit ab, sich schnell und effizient von Störungen zu erholen. Das Buch zeigt, dass die Wiederherstellung komplex und zeitaufwändig sein kann, insbesondere wenn die Systeme nicht auf solche Szenarien vorbereitet sind.
+
+Insgesamt bietet "Blackout" eine spannende und lehrreiche Perspektive auf die Herausforderungen und Risiken, die mit verteilten Systemen verbunden sind. Es unterstreicht die Notwendigkeit robuster Sicherheitsmaßnahmen, Redundanz, effektiver Kommunikation und Resilienz, um die Stabilität und Zuverlässigkeit kritischer Infrastrukturen zu gewährleisten.
+
+\section{Event Driven Architecture}
+\subsection{Grundlagen und Prinzipien}
+\subsection{Beispielanwendungen in Bezug auf Blackout}
+Das ist cool
+
+\section{Load Balancing}
+\subsection{Grundlagen und Funktionsweise}
+\subsection{Load Balancing zur Netzstabilität - Blackout}
+Hier endet Ihr Dokument mit einem Fazit.
+
+\section{Single Point of Failure}
+\subsection{Definition}
+\subsection{Risiken und Auswirken}
+\subsection{Angriffe auf Systeme ohne Single Point of Failure}
+
+\end{document}
