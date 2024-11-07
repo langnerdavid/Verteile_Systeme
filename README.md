@@ -1,2 +1,2 @@
 # Verteile_Systeme
-Verteilte Systeme
+latexmk -pdf main.tex;
