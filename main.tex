@@ -2,8 +2,14 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
 \usepackage{lipsum} % For dummy text
 \usepackage{titlesec} % For controlling section formatting
+\usepackage[a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace} % For line spacing
+\usepackage{parskip} % Prevent paragraph indentation
+\usepackage{graphicx} % For including images
+
 
 \title{Verteilte Systeme - Blackout}
 \author{Axel Walz, Tarek Bürner, David Langner}
@@ -17,12 +23,13 @@
 
 \begin{document}
 
+\onehalfspacing % Set line spacing to 1.5
+
 \maketitle
 
-
-\newpage % Start the table of contents on a new page
+\newpage 
 \tableofcontents
-\newpage % After the table of contents, start a new page
+\newpage 
 
 \section{Einführung Blackout}
 Das Buch "Blackout" von Marc Elsberg beschreibt ein fiktives Szenario, in dem ein großflächiger Stromausfall Europa und Nordamerika lahmlegt. Die Geschichte beginnt mit dem plötzlichen Zusammenbruch des Stromnetzes, der durch einen koordinierten Cyberangriff auf die kritische Infrastruktur verursacht wird. Dieser Angriff zeigt die Verwundbarkeit moderner, stark vernetzter und verteilter Systeme.
@@ -39,8 +46,49 @@ Insgesamt bietet "Blackout" eine spannende und lehrreiche Perspektive auf die He
 
 \section{Event Driven Architecture}
 \subsection{Grundlagen und Prinzipien}
-\subsection{Beispielanwendungen in Bezug auf Blackout}
-Das ist cool
+Die Event Drive Architecture ist ein Architekturstil, der zu mehr Effizienz in Anwendungen führt. Dabei stehen Ereignisse im Vordergrund. Ereignisse beziehen sich immer auf die Veränderung eines Zustandes wie zum Beispiel die Veränderung einer gemessen Temperatur oder der Eingang eines HTTP Requests.
+Als Ereignisgesteuert (event-driven) gilt ein System, wenn Aktionen innerhalb dieses Systems nicht einer festen Abfolge entsprechen sondern immer dynamisch eine Reaktion auf das Eintreffen ein solchen Ereignisses ausgeführt werden.
+Der zentrale Ablauf von ereignisgesteuerten Systemen besteht aus drei Schritten: Erkennen, Verarbeiten und Reagieren. \cite[S. 48f]{Bruns2010}
+
+\textit{Erkennen}: In diesem Schritt wird ein Ereignis identifiziert, das eine Zustandsänderung signalisiert, wie z.B. eine Temperaturänderung oder ein eingehender HTTP-Request. Entscheidend hierfür ist, dass Ereignisse ohne Zeitverzögerung und somit unmittelbar nach ihrem Auftreten erkannt werden.
+
+\textit{Verarbeiten}: Das erkannte Ereignis wird während der Analyse abstrahiert, klassifiziert oder verworfen. Es wird darauf geachtet, dass bestimmte Beziehungen oder Abfolgen zwischen Ereignissen erkannt werden, die eine Aktion auslösen würde.
+
+\textit{Reagieren}: Schließlich werden die vorbereiteten Aktionen ausgeführt, um auf das Ereignis zu reagieren und den neuen Zustand zu verarbeiten. Häufig vorkommende Reaktionen sind das Schicken von Warnmeldungen oder die Initiierung von Aktionen durch menschliche Benutzer. 
+
+Um ein solches System zu realisieren muss während dem Erstellen der Softwarearchitektur darauf geachtet werden, dass es ohne eine zentrale Steuerung konzipiert wird.
+Reagieren: Schl ießlich werden die vorbereiteten Aktionen ausgeführt, um auf das Ereignis zu reagieren und den neuen Zustand zu verarbeiten. \cite[S. 50]{Bruns2010}
+
+Da nicht jedes System, das Ereignisse beinhaltet direkt die Kriterien für ein Event Driven System erfüllt, gibt es verschiedene zwei Eigenschaften, die ein ereignisgesteuerts System erfüllen muss. \newline
+\textit{1. Verarbeitungsmodell:} \newline
+Das Verarbeitungsmodell, das jedem ereignisgesteuerten Systemn zugrunde liegt, besteht aus drei ELementen: Ereignisquelle, Ereignissenke und Ereignisobjekt.
+Ereignisquelle: Die Ereignisquelle, auch als Produzent bezeichnet, erkennt relevante Informationen und erzeugt Ereignisse, die als Nachrichten an einen Mediator gesendet werden. Der Mediator verteilt diese Nachrichten weiter, ohne dass die Ereignisquelle Details zur Verarbeitung oder zu den Empfängern kennen muss. Dadurch erreicht das System eine hohe Aktualität, da Ereignisse sofort nach ihrem Auftreten weitergeleitet werden.
+Ereignissenke: Die Ereignissenke (Konsument) ist eine Komponente, die ein Ereignis empfängt und direkt darauf reagiert. Sobald ein Ereignis eintrifft, wird ein entsprechender Verarbeitungsvorgang ausgelöst.
+Ereignisobjekt: Das Ereignisobjekt enthält nur Informationen über das Ereignis selbst, aber keine Details zur Reaktion darauf. Die Verarbeitung und die entsprechende Reaktion liegen vollständig bei der Ereignissenke. Dies verringert die Abhängigkeit zwischen Ereignisquelle und Ereignissenke was dazu führt, dass verschiedene Komponenten unabhängig voneinander auf dasselbe Ereignis reagieren können. \cite[S. 51f]{Bruns2010} \newline
+Abbildung \ref{fig:Verarbeitungsmodell} veranschaulicht das Modell. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Verarbeitungsmodell.png}
+    \caption{Verarbeitungsmodell der Event Driven Architecture \cite[S. 52]{Bruns2010}}
+    \label{fig:Verarbeitungsmodell}
+\end{figure}
+
+\textit{2. Kommunikationsmuster:} \newline
+Das Kommunikationsmuster in einem ereignisgesteuerten System muss folgende Eigenschaften besitzen: Asynchronität, Publish/Subsribe-Interaktion und Push-Modus.
+Asynchronität: Die Ereignisquelle sendet Nachrichten, ohne auf eine Antwort zu warten. Das bedeutet, dass Quelle und Empfänger unabhängig voneinander arbeiten können und nicht gleichzeitig aktiv sein müssen. Dadurch erhöht sich die Flexibilität und Effizienz der Kommunikation.
+Publish/Subscribe-Interaktion: Die Ereignisquelle (“Publisher”) sendet Nachrichten an eine Middleware, und interessierte Empfänger (“Subscriber”) können diese Nachrichten abonnieren. Dies ermöglicht es mehreren Konsumenten, gleichzeitig auf dasselbe Ereignis zu reagieren.
+Abbildung \ref{fig:PubSub} veranschaulicht das Modell.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Publish_Subscirbe.png}
+    \caption{Publish/Subscirbe Interaktion \cite[S. 54]{Bruns2010}}
+    \label{fig:PubSub}
+\end{figure}
+Push-Modus: Die Initiative zur Interaktion geht immer von der Ereignisquelle aus, die den Zeitpunkt des Nachrichtenaustauschs bestimmt. Dieses Push-basierte Modell ermöglicht eine hohe Entkopplung zwischen den Komponenten und fördert so die Skalierbarkeit und Interoperabilität des Systems.
+\subsection{Beispielanwendungen in Bezug auf Blackout \cite[S. 53f]{Bruns2010}}
+ \cite{example2023}
 
 \section{Load Balancing}
 \subsection{Grundlagen und Funktionsweise}
@@ -51,5 +99,8 @@ Hier endet Ihr Dokument mit einem Fazit.
 \subsection{Definition}
 \subsection{Risiken und Auswirken}
 \subsection{Angriffe auf Systeme ohne Single Point of Failure}
+
+\bibliographystyle{plain}
+\bibliography{literatur}
 
 \end{document}
