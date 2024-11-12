@@ -1,5 +1,7 @@
 *
 !main.tex
 !README.md
+!images/*
 !images/
+!.gitignore
 !literatur.bib
