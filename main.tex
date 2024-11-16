@@ -1,21 +1,20 @@
 \documentclass[a4paper,12pt]{article}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
-\usepackage{lipsum} % For dummy text
-\usepackage{titlesec} % For controlling section formatting
+\usepackage{lipsum}
+\usepackage{titlesec} 
 \usepackage[a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
-\usepackage{setspace} % For line spacing
-\usepackage{parskip} % Prevent paragraph indentation
-\usepackage{graphicx} % For including images
+\usepackage{setspace} 
+\usepackage{parskip} 
+\usepackage{graphicx} 
 
 
 \title{Verteilte Systeme - Blackout}
 \author{Axel Walz, Tarek Bürner, David Langner}
 \date{\today}
 
-% Set each section to start on a new page
+
 \titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
 \titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
 \let\stdsection\section
@@ -23,13 +22,16 @@
 
 \begin{document}
 
-\onehalfspacing % Set line spacing to 1.5
+%\pagestyle{empty}
+\onehalfspacing 
 
 \maketitle
 
 \newpage 
 \tableofcontents
 \newpage 
+\pagestyle{plain}
+\pagenumbering{arabic}
 
 \section{Einführung Blackout}
 Das Buch "Blackout" von Marc Elsberg beschreibt ein fiktives Szenario, in dem ein großflächiger Stromausfall Europa und Nordamerika lahmlegt. Die Geschichte beginnt mit dem plötzlichen Zusammenbruch des Stromnetzes, der durch einen koordinierten Cyberangriff auf die kritische Infrastruktur verursacht wird. Dieser Angriff zeigt die Verwundbarkeit moderner, stark vernetzter und verteilter Systeme.
@@ -86,12 +88,17 @@ Abbildung \ref{fig:PubSub} veranschaulicht das Modell.
     \caption{Publish/Subscirbe Interaktion \cite[S. 54]{Bruns2010}}
     \label{fig:PubSub}
 \end{figure}
-Push-Modus: Die Initiative zur Interaktion geht immer von der Ereignisquelle aus, die den Zeitpunkt des Nachrichtenaustauschs bestimmt. Dieses Push-basierte Modell ermöglicht eine hohe Entkopplung zwischen den Komponenten und fördert so die Skalierbarkeit und Interoperabilität des Systems.
+Push-Modus: Die Initiative zur Interaktion geht immer von der Ereignisquelle aus, die den Zeitpunkt des Nachrichtenaustauschs bestimmt. Dieses Push-basierte Modell ermöglicht eine hohe Entkopplung zwischen den Komponenten und fördert so die Skalierbarkeit und Interoperabilität des Systems. \cite [S. 53f]{Bruns2010}
 \subsection{Beispielanwendungen in Bezug auf Blackout}
  \cite{example2023}
 
 \section{Load Balancing}
 \subsection{Grundlagen und Funktionsweise}
+In Abbildung \ref{fig:LoadBalancing} ist ein Beispielhaftes Modell des Load Balancing in der Cloud dargestellt. Load Balancing ist ein Verfahren, bei dem die Last auf mehrere Systeme verteilt wird, um die Leistung, Zuverlässigkeit und Verfügbarkeit eines Systems zu verbessern.
+Ein Load Balancer erhält eine Anfrage von einem Clienten und entscheidet anhand Algorithmen, welcher Server oder Virtual Machine die Anfrage bearbeiten soll. 
+Der \textit{Data Center Controller} verwaltet die Aufgaben, die an den Load Balancer übergeben werden. Dieser verwendet Algorithmen, um die Aufgaben an geeignete Virtual Machines zuzuweisen.
+
+Benutzeranfragen werden weltweit zufällig eingereicht und müssen einer Virtual Machine zur Bearbeitung zugewiesen werden. Eine ungleichmäßige Auslastung der Virtual Machines kann die Servicequalität negativ beeinflussen. Ein \textit{Hypervisor} oder \textit{Virtual Machine Monitor} spielt dabei eine zentrale Rolle, da er die Erstellung und Verwaltung von Virtual Machines ermöglicht und Funktionen wie Multiplexing, Speicherung, Wiederaufnahme von zuvor gespeicherten Virtual Machines und Live-Migration zu einem anderen Host bereitstellt. \cite[S. 2]{LoadBalancing}
 
 \begin{figure}[h]
     \centering
@@ -100,8 +107,17 @@ Push-Modus: Die Initiative zur Interaktion geht immer von der Ereignisquelle aus
     \label{fig:LoadBalancing}
 \end{figure}
 
+Es gibt verschiedene Arten von Load Balancing Algorithmen. Grob werden die Algorithmen aufgrund zwei verschiedener Faktoren eingeteilt: dem Zustand des Systems und der Person, die den Prozess initiert hat. 
+Ersteres unterteilt sich weiter in statische und dynamische Algorithmen. Statische Algorithmen sind beispielsweise Round Robin, Min-Min oder Min Max Algorithmen. Diese setzen voraus, dass alle Systeminformationen im voraus bekannt sind. Ein Beispiel für einen fynamischen Algorithmus ist der Ant Colony Optimazation Algorithmus. Dynamische Algorithmen passen sich an die aktuelle Systemlast an und reagieren auf Änderungen in Echtzeit. 
+
+Staische Algorithmen werden weiter in optimale und sub-optimale Algorithmen unterteilt. Optimal bedeutet, dass der Lastverteiler eine optimale Entscheidung basierend auf den vorhandenen Daten trifft. Sub-optimale Algorithmen treffen eine gute, aber nicht perfekte Entscheidung. Diese Algorithmen können heuristische oder approximative Methoden verwenden, um anpassungsfähige Entscheidungen zu treffen. Heuristische Methoden schätzen die Lösung basierend auf Erfahrungswerten, approximative Ansätze versuchen mathematisch nah an die optimale Lösung heranzukommen. 
+
+Dynamische Algorithmen können weiter in verteilte und nicht-verteilte Klassen unterteilt werden. Bei den verteilten Algorithmen führen alle Knoten den Algorithmus aus und die Verteilung der Last ist zwischen den Knoten aufgeteilt. Zwischen den Knoten kann entweder eine kooperative oder nicht.kooperative Interaktion stattfinden. Bei der kooperativen Interaktion arbeiten die Knoten zusammen um das Ziel gemeinsam zu erreichen. Bei der nicht-kooperativen Interaktion verfolgt jeder Knoten sein eigenes lokales Ziel. Die nicht-verteilten dynamischen Algorithmen werden in zentralisierte und semi-verteilte Algorithmen unterteilt. Zentralisiert bedeutet, dass ein einzelner Knoten die Lastverteilung übernimmt. Semi-verteilt bedeutet, dass die Knoten in Gruppen organisiert sind und jeder Cluster einen zentralen Knoten hat, der für die Lastverteilung zuständig ist. 
+\newline
+Algorithmen, die von einer Person/einem Prozess initiert werden können entweder Sender-initiiert, Empfänger-initiiert oder symmetrisch sein.
+Sender-initiiert bedeutet, dass Entscheidungen bei der Erstellung neuer Aufgaben getroffen werden. Empfänger-initiiert beudetet, dass Entscheidungen erfolgen, wenn Aufgaben abgeschlossen werden. Symmetrisch bedeutet, dass sowohl Sender als auch Empfänger Entscheidungen treffen können. \cite[S. 3]{LoadBalancing}
+
 \subsection{Load Balancing zur Netzstabilität - Blackout}
-Hier endet Ihr Dokument mit einem Fazit.
 
 \section{Single Point of Failure}
 \subsection{Definition}
