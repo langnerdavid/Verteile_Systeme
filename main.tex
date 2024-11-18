@@ -120,8 +120,23 @@ Sender-initiiert bedeutet, dass Entscheidungen bei der Erstellung neuer Aufgaben
 \subsection{Load Balancing zur Netzstabilität - Blackout}
 
 \section{Single Point of Failure}
-\subsection{Definition}
-\subsection{Risiken und Auswirken}
+
+\subsection{Einführung Single Point of Failure}
+
+Im Buch Blackout wird der Stromausfall durch einen Angriff auf zentrale Steuerungselemente ausgelöst. Dies führt zu einer Kaskade von Ausfällen, was zum Zusammenbruch des gesamten Netzes führt. Dieser Angriff zeigt, wie verwundbar verteilte Systeme durch einen sogenannten Single Point of Failure (SPOF) sind.
+
+Ein SPOF ist eine Komponente eines Systems, deren Ausfall oder Defekt dazu führen kann, dass das gesamte System nicht mehr Funktioniert. In verteilten Systemen stellen SPOFs ein erhebliches Risiko für die Verfügbarkeit, Zuverlässigkeit und Sicherheit. Daher ist es wichtig SPOFs zu erkennen und zu beseitigen. 
+
+\subsection{Ursachen und Risiken von SPOFs}
+
+Es gibt unterschiedliche Ursachen für SPOFs. Häufig entstehen sie durch unzureichende Planung und Strukturierung. Eine Ursache is eine Zentralisierung von Steuerungsinstanzen. Wenn in verteilten Systemen die Teilnehmer ohne eine zentrale Steuerungsinstanze, wie eine Master-Node oder eine Hauptserver, nicht eigenständig agieren können, dann wirkt die zentrale Instant als SPOF. Fällt diese zentrale Instanz aus, bricht das ganze System zusammen. So eine Zentralisierung erhöt das Risiko gegenüber Ausfällen oder gezielten Angriffen.
+
+Ein weitere Ursache, kann das fehlen von Redundanz sein. Wenn kritische Komponenten, wie Datenbanken oder Kommunikationskanäle, nicht durch alternativen abgesichert sind, oder Redundant aufgebaut sind, führt eine komprimentierung dieser zu Systemfehlern. Zum Beispiel sollte es in Stromnetzen mehre Übertragungssysteme für Strom geben \cite[S. 61f.]{Jarass2009}. Oder man sollte nicht von bestimmten Technologien, Dienstleisten, etc. abhängig sein. 
+
+Neben dem Risiko, dass ein SPOF direkt zum kompletten Systemabsturz führen kann, gibt es noch weitere Risiken. Probleme bei einem zentralen Punkt können durch das ganze System kaskadieren und weitreichende Probleme verursachen. Des Weiteren erhöhen SPOFs die Sicherheitsrisiken. SPOFs sind ein lukratives Ziel für Angreifer, weil bei einem erfolgreichen Angriff maximale Auswirkungen erzielt werden können.
+
+\subsection{Strategien zur Vermeidung von SPOFs}
+
 \subsection{Angriffe auf Systeme ohne Single Point of Failure}
 
 \bibliographystyle{plain}
