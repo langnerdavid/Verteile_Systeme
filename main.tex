@@ -129,16 +129,34 @@ Ein SPOF ist eine Komponente eines Systems, deren Ausfall oder Defekt dazu führ
 
 \subsection{Ursachen und Risiken von SPOFs}
 
-Es gibt unterschiedliche Ursachen für SPOFs. Häufig entstehen sie durch unzureichende Planung und Strukturierung. Eine Ursache is eine Zentralisierung von Steuerungsinstanzen. Wenn in verteilten Systemen die Teilnehmer ohne eine zentrale Steuerungsinstanze, wie eine Master-Node oder eine Hauptserver, nicht eigenständig agieren können, dann wirkt die zentrale Instant als SPOF. Fällt diese zentrale Instanz aus, bricht das ganze System zusammen. So eine Zentralisierung erhöt das Risiko gegenüber Ausfällen oder gezielten Angriffen.
+Es gibt unterschiedliche Ursachen für SPOFs. Häufig entstehen sie durch unzureichende Planung und Strukturierung. Eine Ursache is eine Zentralisierung von Steuerungsinstanzen. Wenn in verteilten Systemen die Teilnehmer ohne eine zentrale Steuerungsinstanze, wie eine Master-Node oder eine Hauptserver, nicht eigenständig agieren können, dann wirkt die zentrale Instant als SPOF. Fällt diese zentrale Instanz aus, bricht das ganze System zusammen \cite[S. 253f.]{Steen2006}. So eine Zentralisierung erhöt das Risiko gegenüber Ausfällen oder gezielten Angriffen.
 
-Ein weitere Ursache, kann das fehlen von Redundanz sein. Wenn kritische Komponenten, wie Datenbanken oder Kommunikationskanäle, nicht durch alternativen abgesichert sind, oder Redundant aufgebaut sind, führt eine komprimentierung dieser zu Systemfehlern. Zum Beispiel sollte es in Stromnetzen mehre Übertragungssysteme für Strom geben \cite[S. 61f.]{Jarass2009}. Oder man sollte nicht von bestimmten Technologien, Dienstleisten, etc. abhängig sein. 
+Eine weitere Ursache, kann das fehlen von Redundanz sein. Wenn kritische Komponenten, wie Datenbanken oder Kommunikationskanäle, nicht durch alternativen abgesichert sind, oder Redundant aufgebaut sind, führt eine kompromittierung dieser zu Systemfehlern. Zum Beispiel sollte es in Stromnetzen mehre Übertragungssysteme für Strom geben \cite[S. 61f.]{Jarass2009}. Oder man sollte nicht von bestimmten Technologien, Dienstleisten, etc. abhängig sein. Weitere Ursachen für SPOFs können fehlende Separierung, fehlende Backup-Systeme und mehr sein.
 
 Neben dem Risiko, dass ein SPOF direkt zum kompletten Systemabsturz führen kann, gibt es noch weitere Risiken. Probleme bei einem zentralen Punkt können durch das ganze System kaskadieren und weitreichende Probleme verursachen. Des Weiteren erhöhen SPOFs die Sicherheitsrisiken. SPOFs sind ein lukratives Ziel für Angreifer, weil bei einem erfolgreichen Angriff maximale Auswirkungen erzielt werden können.
 
 \subsection{Strategien zur Vermeidung von SPOFs}
 
-\subsection{Angriffe auf Systeme ohne Single Point of Failure}
+Damit SPOFs vermieden werden können, müssen SPOFs zuerst identifiziert werden, um entsprechende Gegenmahnsamen vorzunehmen. Die Prozess der Identifikation von SPOFs beginnt bereits bei der Initialen Planung des Systems und wird beim Betrieb und jeder Änderung des Systems fortgeführt. Zur Identifikation gehören folgende Strategien:
 
+\begin{itemize}
+    \item \textbf{Architekturanalyse:} Die Systemarchitektur wird Analysiert um Abhängigkeiten zu erkennen. Architekturdiagramme helfen, SPOFs zu identifizieren. Dazu gehört auch die Identifikation von Abhängigkeiten von Drittanbietern, wie Cloud-Dienste.
+    \item \textbf{Komponententests:} Der Ausfall einzelner Komponenten wird simuliert um dessen Auswirkung auf das Gesamtsystem zu bewerten.
+    \item \textbf{Systemüberwachung:} Mithilfe von Monitoring-Daten werden häufig beanspruchte oder kritische Komponenten identifiziert. Des Weiteren wird das Netzwerk überwacht um Engpässe oder kritische Verbindungspunkte zu finden. 
+\end{itemize}
+
+Prominetnte Strategine um mit SPOFs umzugehen sind:
+
+\begin{itemize}
+    \item \textbf{Dezentralisierung:} Das vermeiden von zentralen Steuerungsinstanzen, indem Funktionen auf mehrere Knoten verteilt werden, wie zum Beispiel bei Peer-to-Peer-Netzwerken.
+    \item \textbf{Redundanz:} Von kritischen Komponenten werden mehrere Instanzen bereitgestellt, so das ein Ausfall einer Komponente nicht zum Systemabsturz führt. Zu Redundanz Maßnahmen gehören die Datenreplikation, bereitstellen redundanter Server oder Netzwerkschnittstellen oder das Laufen von Paralleler Instanzen mit Load Balancing.
+    \item \textbf{Failure Detectors und Failover-Mechanismen:} Failure Detectors erkennen Fehlerzustände um entsprechende Gegenmaßnahmen und Schutzmaßnahmen einzuleiten. Zum Beispiel werden Backup-Systeme implementiert, auf die bei Ausfällen automatisch Umgeschaltet wird.
+    \item \textbf{Systemseparierung:} Kritische Funktionen und Ressourcen werden in unabhängige, isolierte Einheiten aufgeteilt. Zudem wird das System so aufgeteilt und separiert, dass sich Probleme nicht auf das gesamte System ausbreiten können. Zum Beispiel betreibt ein Cloud-Service wie AWS Instanzen in verschiedenen Verfügbarkeitskontrollen, so dass wenn ein Rechenzentrum ausfällt das System aktiv bleibt.
+\end{itemize}
+
+\subsection{Angriffe auf Systeme ohne SPOF}
+
+Systeme ohne SPOF sind besser geschützt gegenüber dem Ausfall einzelner Komponenten und Angriffen, dennoch sind sie nicht immun gegenüber Angriffen. Angreifer können zum Beispiel die oben genannten Failure Detectors gezielt angreifen. Zum Beispiel können sie falsche Meldungen auslösen um korrekte Prozesse fälschlicherweise als ausgefallen zu markieren oder tatsächliche Fehler zu maskieren. Ebenfalls können "eventually accurate" Detektoren so manipuliert werden, dass sie immer in einem Zustand der Unsicherheit bleiben. Jedoch gibt es auch hier Schutzmaßnahmen, wie dass bei ungenauen Fehlererkennungen niemals Sicherheitsanforderungen verletzt werden \cite{10.1145/1052796.1052806}.
 \bibliographystyle{plain}
 \bibliography{literatur}
 
