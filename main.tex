@@ -102,7 +102,7 @@ Benutzeranfragen werden weltweit zufällig eingereicht und müssen einer Virtual
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/Load_Balancing.png}
-    \caption{Modell des Load Balancing}
+    \caption{Modell des Load Balancing \cite[S. 2]{LoadBalancing}}
     \label{fig:LoadBalancing}
 \end{figure}
 
@@ -157,8 +157,7 @@ Prominente Strategien um mit SPOFs umzugehen sind:
 \end{itemize}
 
 \subsection{Angriffe auf Systeme ohne SPOF}
-
-Systeme ohne SPOF sind besser geschützt gegenüber dem Ausfall einzelner Komponenten und Angriffen, dennoch sind sie nicht immun gegenüber Angriffen. Angreifer können zum Beispiel die oben genannten Failure Detectors gezielt angreifen. so können bspw. falsche Meldungen ausgelöst werden um korrekte Prozesse fälschlicherweise als ausgefallen zu markieren oder tatsächliche Fehler zu maskieren. Ebenfalls können "eventually accurate" Detektoren so manipuliert werden, dass sie immer in einem Zustand der Unsicherheit bleiben. Jedoch gibt es auch hier Schutzmaßnahmen, wie dass bei ungenauen Fehlererkennungen niemals Sicherheitsanforderungen verletzt werden \cite{10.1145/1052796.1052806}.
+Systeme ohne SPOF bieten zwar einen besseren Schutz vor dem Ausfall einzelner Komponenten und gezielten Angriffen, sie sind jedoch nicht vollständig immun. Ein Angreifer könnte beispielsweise Failure Detectors manipulieren, um falsche Meldungen zu erzeugen. Dies kann dazu führen, dass korrekte Prozesse fälschlicherweise als ausgefallen markiert oder tatsächliche Fehler verschleiert werden. Auch "eventually accurate" Detektoren lassen sich so manipulieren, dass sie dauerhaft in einem Zustand der Unsicherheit bleiben. Es existieren jedoch Schutzmaßnahmen, die sicherstellen, dass trotz ungenauer Fehlererkennung keine Sicherheitsanforderungen verletzt werden. \cite{10.1145/1052796.1052806}
 \bibliographystyle{plain}
 \bibliography{literatur}
 
