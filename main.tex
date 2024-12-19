@@ -36,11 +36,12 @@
 \pagestyle{plain}
 \pagenumbering{arabic}
 
+
 \section{Einführung Blackout}
 In dem Buch "'Blackout – Morgen ist es zu spät"' von Marc Elsberg wird das fiktive Szenario eines europaweiten Stromausfalls beschrieben. Verursacht wird dieser durch die Manipulation der sogenannten Smart Meter. Dabei handelt es sich um intelligente Stromzähler, die Daten zum Verbrauch (und ggf. auch zur Erzeugung) an die Netzbetreiber übermitteln. Diese Daten ermöglichen es, Angebot und Nachfrage im Stromnetz effizienter zu regeln, was zu einer erhöhten Netzstabilität führt \cite{SmartMeter}. \\
 Im Buch werden diese Smart Meter jedoch für einen Angriff auf das Stromnetz missbraucht, indem gefälschte Verbrauchsdaten an die Netzbetreiber gesendet werden. Diese simulierten Verbrauchsspitzen führen zu einem Abfall der Netzfrequenz. Sinkt die Netzfrequenz unter 49 Hz, werden Teile des Stromnetzes automatisch getrennt, um das System zu stabilisieren. Fällt die Frequenz weiter unter 47,5 Hz, trennen sich alle entsprechenden Netzsegmente vollständig vom Stromnetz, um größere Schäden zu vermeiden und anschließend die Stromversorgung neu aufzubauen \cite{Netzfrequenz}. Genau dies geschieht in "'Blackout"': Der Stromausfall beginnt in Norditalien. Aufgrund der engen Vernetzung der europäischen Stromnetze, die den Stromhandel und die Versorgungssicherheit gewährleisten sollen, weitet sich der Blackout von Italien auf Zentraleuropa und schließlich auf das gesamte europäische Stromnetz aus.\\
 Zwar versuchen die betroffenen Länder immer wieder, die Stromversorgung neu aufzubauen, doch diese Bemühungen scheitern, da die Smart Meter kontinuierlich manipulierte Daten senden und somit eine stabile Frequenzregulierung verhindern. Dies führt zu einem nahezu zweiwöchigen Stromausfall in weiten Teilen Europas.\\
-Das Buch "'Blackout"' verdeutlicht die Abhängigkeit moderner Gesellschaften von vernetzten Infrastrukturen und zeigt die Risiken auf, die durch Angriffe auf solche entstehen können. Gleichzeitig bietet es eine Grundlage, um die Rolle und Potenziale von Konzepten der Verteilten Systeme, zu analysieren. Diese können präventiv eingesetzt werden, um solche Szenarien zu verhindern oder deren Auswirkungen abzumildern. Im Folgenden werden drei zentrale Konzepte vernetzter Systeme – Event-Driven Architecture, Load Balancing und die Vermeidung von Single Points of Failure – näher beleuchtet, um die Brücke zwischen dem Buch und den Methoden verteilter Systeme zu schlagen.
+Das Buch "'Blackout"' verdeutlicht die Abhängigkeit moderner Gesellschaften von vernetzten Infrastrukturen und zeigt die Risiken auf, die durch Angriffe auf solche entstehen können. Gleichzeitig bietet es eine Grundlage, um die Rolle und Potenziale von Konzepten der Verteilten Systeme zu analysieren. Diese können präventiv eingesetzt werden, um solche Szenarien zu verhindern oder deren Auswirkungen abzumildern. Im Folgenden werden drei zentrale Konzepte vernetzter Systeme – Event-Driven Architecture, Load Balancing und die Vermeidung von Single Points of Failure – näher beleuchtet, um die Brücke zwischen dem Buch und den Methoden verteilter Systeme zu schlagen.
 
 \section{Event Driven Architecture}
 \subsection{Grundlagen und Prinzipien}
@@ -56,9 +57,9 @@ Der zentrale Ablauf von ereignisgesteuerten Systemen besteht aus drei Schritten:
 
 Um ein solches System zu realisieren muss während dem Erstellen der Softwarearchitektur darauf geachtet werden, dass es ohne eine zentrale Steuerung konzipiert wird. \cite[S. 50]{Bruns2010}
 
-Da nicht jedes System, das Ereignisse beinhaltet direkt die Kriterien für ein Event Driven System erfüllt, gibt es zwei Eigenschaften, die ein ereignisgesteuerts System erfüllen muss. \newline
+Da nicht jedes System, das Ereignisse beinhaltet direkt die Kriterien für ein Event Driven System erfüllt, gibt es zwei Eigenschaften, die ein ereignisgesteuertes System erfüllen muss. \newline
 \textit{1. Verarbeitungsmodell:} \newline
-Das Verarbeitungsmodell, das jedem ereignisgesteuerten Systemn zugrunde liegt, besteht aus drei ELementen: Ereignisquelle, Ereignissenke und Ereignisobjekt.
+Das Verarbeitungsmodell, das jedem ereignisgesteuerten Systemn zugrunde liegt, besteht aus drei Elementen: Ereignisquelle, Ereignissenke und Ereignisobjekt.
 Ereignisquelle: Die Ereignisquelle, auch als Produzent bezeichnet, erkennt relevante Informationen und erzeugt Ereignisse, die als Nachrichten an einen Mediator gesendet werden. Der Mediator verteilt diese Nachrichten weiter, ohne dass die Ereignisquelle Details zur Verarbeitung oder zu den Empfängern kennen muss. Dadurch erreicht das System eine hohe Aktualität, da Ereignisse sofort nach ihrem Auftreten weitergeleitet werden.
 Ereignissenke: Die Ereignissenke (Konsument) ist eine Komponente, die ein Ereignis empfängt und direkt darauf reagiert. Sobald ein Ereignis eintrifft, wird ein entsprechender Verarbeitungsvorgang ausgelöst.
 Ereignisobjekt: Das Ereignisobjekt enthält nur Informationen über das Ereignis selbst, aber keine Details zur Reaktion darauf. Die Verarbeitung und die entsprechende Reaktion liegen vollständig bei der Ereignissenke. Dies verringert die Abhängigkeit zwischen Ereignisquelle und Ereignissenke was dazu führt, dass verschiedene Komponenten unabhängig voneinander auf dasselbe Ereignis reagieren können. \cite[S. 51f]{Bruns2010} \newline
@@ -85,10 +86,10 @@ Abbildung \ref{fig:PubSub} veranschaulicht das Modell.
 \end{figure}
 Push-Modus: Die Initiative zur Interaktion geht immer von der Ereignisquelle aus, die den Zeitpunkt des Nachrichtenaustauschs bestimmt. Dieses Push-basierte Modell ermöglicht eine hohe Entkopplung zwischen den Komponenten und fördert so die Skalierbarkeit und Interoperabilität des Systems. \cite [S. 53f]{Bruns2010}
 \subsection{Beispielanwendungen in Bezug auf Blackout}
-In Blackout wurden wie eingangs beschrieben Schadcodes über die intelligenten Stromzähler versendet, wodurch unregelmäßige Stromverbräuche simuliert wurden. Im Kontext der Event Driven Architecture, wäre hier ein Frühwarnsystem denkbar. Die Daten der Smart Meter würden hierbei als Ereignisquelle dienen. Um gezielt Angriffe erkennen zu können, muss hierbei überwachen, welcher Stromzähler zu welchen Zeitpunkten und in welchen Intervallen Daten sendet.\\
+In Blackout wurden wie eingangs beschrieben Schadcodes über die intelligenten Stromzähler versendet, wodurch unregelmäßige Stromverbräuche simuliert wurden. Im Kontext der Event Driven Architecture, wäre hier ein Frühwarnsystem denkbar. Die Daten der Smart Meter würden hierbei als Ereignisquelle dienen. Um gezielt Angriffe erkennen zu können, muss man hierbei überwachen, welcher Stromzähler zu welchen Zeitpunkten und in welchen Intervallen Daten sendet.\\
 Anhand des übermittelten Ereignisses muss nun analysiert werden, ob Abweichungen vom normalen Betrieb zu identifizieren sind. Dafür könnten beispielsweise stark abweichende Verbrauchsmuster oder unerwartete Datenmuster als Indikatoren verwendet werden. Starke Lastspitzen oder besonders niedrige Werte wären eine Möglichkeit frühzeitig Angriffe zu erkennen.\\
-Die Reaktion auf einen identifizierten Angriff sollte nun in unterschiedlichen Eskalationsstufen, durch die Ereignissenke erfolgen. Weißen beispielsweise nur einzelne Stromregler Unauffälligkeiten auf, reicht eine Warnmeldung an die zuständigen Instanzen und eine Überprüfung der Fehlerquelle. Sollten hingegen großflächig Unregelmäßigkeiten auftreten wodurch die Stabilität des Netzes gefährdet wird, müssen betroffene Bereiche automatisiert vom Netz getrennt werden um einen Blackout vermeiden zu können. Die Smart Meter verschicken die Daten zur Analyse asynchron, subscriben würden diejenigen Einrichtungen, die zur Steuerung des Betroffenen Ausschnitts aus dem Stromnetz verantwortlich sind.\\
-Eine EDA hätte also möglicherweise führen können, den Cyberangriff auf die Smart Meter als solchen zu identifizieren und den Europaweiten Blackout ggfs. auf lokale Blackouts reduzieren können.
+Die Reaktion auf einen identifizierten Angriff sollte nun in unterschiedlichen Eskalationsstufen, durch die Ereignissenke erfolgen. Weisen beispielsweise nur einzelne Stromregler Unauffälligkeiten auf, reicht eine Warnmeldung an die zuständigen Instanzen und eine Überprüfung der Fehlerquelle. Sollten hingegen großflächig Unregelmäßigkeiten auftreten wodurch die Stabilität des Netzes gefährdet wird, müssen betroffene Bereiche automatisiert vom Netz getrennt werden um einen Blackout vermeiden zu können. Die Smart Meter verschicken die Daten zur Analyse asynchron, subscriben würden diejenigen Einrichtungen, die zur Steuerung des Betroffenen Ausschnitts aus dem Stromnetz verantwortlich sind.\\
+Eine EDA hätte also möglicherweise dazu führen können, den Cyberangriff auf die Smart Meter als solchen zu identifizieren und den Europaweiten Blackout ggfs. auf lokale Blackouts reduzieren zu können.
 
 
 \section{Load Balancing}
@@ -107,13 +108,13 @@ Benutzeranfragen werden weltweit zufällig eingereicht und müssen einer Virtual
 \end{figure}
 
 Es gibt verschiedene Arten von Load Balancing Algorithmen. Grob werden die Algorithmen aufgrund zwei verschiedener Faktoren eingeteilt: dem Zustand des Systems und der Person, die den Prozess initiiert hat. 
-Ersteres unterteilt sich weiter in statische und dynamische Algorithmen. Statische Algorithmen sind beispielsweise Round Robin, Min-Min oder Min Max Algorithmen. Diese setzen voraus, dass alle Systeminformationen im voraus bekannt sind. Ein Beispiel für einen dynamischen Algorithmus ist der Ant Colony Optimazation Algorithmus. Dynamische Algorithmen passen sich an die aktuelle Systemlast an und reagieren auf Änderungen in Echtzeit. 
+Ersteres unterteilt sich weiter in statische und dynamische Algorithmen. Statische Algorithmen sind beispielsweise Round Robin, Min-Min oder Min Max Algorithmen. Diese setzen voraus, dass alle Systeminformationen im Voraus bekannt sind. Ein Beispiel für einen dynamischen Algorithmus ist der Ant Colony Optimization Algorithmus. Dynamische Algorithmen passen sich an die aktuelle Systemlast an und reagieren auf Änderungen in Echtzeit. 
 
 Staische Algorithmen werden weiter in optimale und sub-optimale Algorithmen unterteilt. Optimal bedeutet, dass der Lastverteiler eine optimale Entscheidung basierend auf den vorhandenen Daten trifft. Sub-optimale Algorithmen treffen eine gute, aber nicht perfekte Entscheidung. Diese Algorithmen können heuristische oder approximative Methoden verwenden, um anpassungsfähige Entscheidungen zu treffen. Heuristische Methoden schätzen die Lösung basierend auf Erfahrungswerten, approximative Ansätze versuchen mathematisch nah an die optimale Lösung heranzukommen. 
 
 Dynamische Algorithmen können weiter in verteilte und nicht-verteilte Klassen unterteilt werden. Bei den verteilten Algorithmen führen alle Knoten den Algorithmus aus und die Verteilung der Last ist zwischen den Knoten aufgeteilt. Zwischen den Knoten kann entweder eine kooperative oder nicht-kooperative Interaktion stattfinden. Bei der kooperativen Interaktion arbeiten die Knoten zusammen um das Ziel gemeinsam zu erreichen. Bei der nicht-kooperativen Interaktion verfolgt jeder Knoten sein eigenes lokales Ziel. Die nicht-verteilten dynamischen Algorithmen werden in zentralisierte und semi-verteilte Algorithmen unterteilt. Zentralisiert bedeutet, dass ein einzelner Knoten die Lastverteilung übernimmt. Semi-verteilt bedeutet, dass die Knoten in Gruppen organisiert sind und jeder Cluster einen zentralen Knoten hat, der für die Lastverteilung zuständig ist. 
 \newline
-Algorithmen, die von einer Person/einem Prozess initiiert werden können entweder Sender-initiiert, Empfänger-initiiert oder symmetrisch sein.
+Algorithmen, die von einer Person/einem Prozess initiiert werden, können entweder Sender-initiiert, Empfänger-initiiert oder symmetrisch sein.
 Sender-initiiert bedeutet, dass Entscheidungen bei der Erstellung neuer Aufgaben getroffen werden. Empfänger-initiiert beudetet, dass Entscheidungen erfolgen, wenn Aufgaben abgeschlossen werden. Symmetrisch bedeutet, dass sowohl Sender als auch Empfänger Entscheidungen treffen können. \cite[S. 3]{LoadBalancing}
 
 \subsection{Load Balancing zur Netzstabilität - Blackout}
@@ -123,7 +124,7 @@ Darüber hinaus erhöht ein solches System die Resilienz des Stromnetzes gegen p
 
 \section{Single Point of Failure}
 
-Ein SPOF ist eine Komponente eines Systems, deren Ausfall oder Defekt dazu führen kann, dass das gesamte System nicht mehr Funktioniert. In verteilten Systemen stellen SPOFs ein erhebliches Risiko für die Verfügbarkeit, Zuverlässigkeit und Sicherheit. Daher ist es wichtig SPOFs zu erkennen und zu beseitigen. 
+Ein SPOF ist eine Komponente eines Systems, deren Ausfall oder Defekt dazu führen kann, dass das gesamte System nicht mehr Funktioniert. In verteilten Systemen stellen SPOFs ein erhebliches Risiko für die Verfügbarkeit, Zuverlässigkeit und Sicherheit dar. Daher ist es wichtig SPOFs zu erkennen und zu beseitigen. 
 
 \subsection{Ursachen und Risiken von SPOFs}
 SPOFs entstehen häufig durch unzureichende Planung und Strukturierung. Eine häufige Ursache ist die Zentralisierung von Steuerungsinstanzen: Wenn Teilnehmer in einem verteilten System ohne eine zentrale Komponente wie eine Master-Node oder einen Hauptserver nicht eigenständig agieren können, wird diese Komponente zum SPOF. Fällt diese zentrale Stelle aus, führt dies zum Zusammenbruch des gesamten Systems \cite[S. 253f.]{Steen2006}.\\
@@ -132,7 +133,7 @@ Ein weiterer Faktor ist das Fehlen von Redundanz. Kritische Komponenten wie Date
 
 \subsection{Strategien zur Vermeidung von SPOFs}
 
-Damit SPOFs vermieden werden können, müssen SPOFs zuerst identifiziert werden, um entsprechende Gegenmahnsamen vorzunehmen. Die Prozess der Identifikation von SPOFs beginnt bereits in der Planungsphase des Systems und wird beim Betrieb und jeder Änderung des Systems fortgeführt. Zur Identifikation gehören folgende Strategien:
+Damit SPOFs vermieden werden können, müssen SPOFs zuerst identifiziert werden, um entsprechende Gegenmaßnhamen vorzunehmen. Die Prozess der Identifikation von SPOFs beginnt bereits in der Planungsphase des Systems und wird beim Betrieb und jeder Änderung des Systems fortgeführt. Zur Identifikation gehören folgende Strategien:
 
 \begin{itemize}
     \item \textbf{Architekturanalyse:} Die Systemarchitektur wird Analysiert um Abhängigkeiten zu erkennen, dabei helfen Architekturdiagramme SPOFs zu identifizieren. Dazu gehört auch die Identifikation von Abhängigkeiten von Drittanbietern, wie Cloud-Dienste.
@@ -145,7 +146,7 @@ Sobald die SPOF identifiziert sind, können sie durch folgende Strategien umgang
 \begin{itemize}
     \item \textbf{Dezentralisierung:} Zentrale Steuerungsinstanzen werden vermieden, indem Funktionen auf mehrere Knoten verteilt werden, wie beispielsweise in Peer-to-Peer-Netzwerken.
     \item \textbf{Redundanz:} Kritische Komponenten werden mehrfach bereitgestellt, sodass ein Ausfall einer Komponente nicht zum Systemabsturz führt. Maßnahmen dafür sind die Datenreplikation, das Bereitstellen redundanter Server oder das Laufen von Paralleler Instanzen mit Load Balancing.
-    \item \textbf{Failure Detectors und Failover-Mechanismen:} Failure Detectors erkennen Fehlerzustände um entsprechende Gegenmaßnahmen und Schutzmaßnahmen einzuleiten. wie zum Beispiel das Umschalten auf Backup-Systeme bei Ausfällen.
+    \item \textbf{Failure Detectors und Failover-Mechanismen:} Failure Detectors erkennen Fehlerzustände, um entsprechende Gegenmaßnahmen und Schutzmaßnahmen einzuleiten, wie zum Beispiel das Umschalten auf Backup-Systeme bei Ausfällen.
     \item \textbf{Systemseparierung:} Kritische Funktionen und Ressourcen werden in unabhängige, isolierte Einheiten aufgeteilt, sodass sich Probleme nicht auf das gesamte System ausbreiten können. Cloud-Services wie AWS setzen beispielsweise auf Instanzen in verschiedenen Verfügbarkeitskontrollen, sodass das Systemm selbst bei dem Ausfall eines Rechenzentrums aktiv bleibt.
 \end{itemize}
 
