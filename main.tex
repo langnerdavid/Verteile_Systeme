@@ -72,7 +72,7 @@ Abbildung \ref{fig:Verarbeitungsmodell} veranschaulicht das Modell.
 \end{figure}
 
 \textit{2. Kommunikationsmuster:} \newline
-Das Kommunikationsmuster in einem ereignisgesteuerten System muss folgende Eigenschaften besitzen: Asynchronität, Publish/Subsribe-Interaktion und Push-Modus.
+Das Kommunikationsmuster in einem ereignisgesteuerten System muss folgende Eigenschaften besitzen: Asynchronität, Publish/Subscribe-Interaktion und Push-Modus.
 Asynchronität: Die Ereignisquelle sendet Nachrichten, ohne auf eine Antwort zu warten. Das bedeutet, dass Quelle und Empfänger unabhängig voneinander arbeiten können und nicht gleichzeitig aktiv sein müssen. Dadurch erhöht sich die Flexibilität und Effizienz der Kommunikation.
 Publish/Subscribe-Interaktion: Die Ereignisquelle (“Publisher”) sendet Nachrichten an eine Middleware, und interessierte Empfänger (“Subscriber”) können diese Nachrichten abonnieren. Dies ermöglicht es mehreren Konsumenten, gleichzeitig auf dasselbe Ereignis zu reagieren.
 Abbildung \ref{fig:PubSub} veranschaulicht das Modell.
@@ -80,14 +80,14 @@ Abbildung \ref{fig:PubSub} veranschaulicht das Modell.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Publish_Subscirbe.png}
-    \caption{Publish/Subscirbe Interaktion \cite[S. 54]{Bruns2010}}
+    \caption{Publish/Subscribe Interaktion \cite[S. 54]{Bruns2010}}
     \label{fig:PubSub}
 \end{figure}
 Push-Modus: Die Initiative zur Interaktion geht immer von der Ereignisquelle aus, die den Zeitpunkt des Nachrichtenaustauschs bestimmt. Dieses Push-basierte Modell ermöglicht eine hohe Entkopplung zwischen den Komponenten und fördert so die Skalierbarkeit und Interoperabilität des Systems. \cite [S. 53f]{Bruns2010}
 \subsection{Beispielanwendungen in Bezug auf Blackout}
-In Blackout wurden wie eingangs beschrieben Schadcodes über die intelligenten Stromzähler versendet, wodurch unregelmäßige Stromverbräuche simulliert wurden. Im Kontext der Event Driven Architecture, wäre hier ein Frühwarnsystem denkbar. Die Daten der Smart Meter würden hierbei als Ereignisquelle dienen. Um gezielt Angriffe erkennen zu können, muss hierbei überwachen, welcher Stromzähler zu welchen Zeitpunkten und in welchen Intervallen Daten sendet.\\
+In Blackout wurden wie eingangs beschrieben Schadcodes über die intelligenten Stromzähler versendet, wodurch unregelmäßige Stromverbräuche simuliert wurden. Im Kontext der Event Driven Architecture, wäre hier ein Frühwarnsystem denkbar. Die Daten der Smart Meter würden hierbei als Ereignisquelle dienen. Um gezielt Angriffe erkennen zu können, muss hierbei überwachen, welcher Stromzähler zu welchen Zeitpunkten und in welchen Intervallen Daten sendet.\\
 Anhand des übermittelten Ereignisses muss nun analysiert werden, ob Abweichungen vom normalen Betrieb zu identifizieren sind. Dafür könnten beispielsweise stark abweichende Verbrauchsmuster oder unerwartete Datenmuster als Indikatoren verwendet werden. Starke Lastspitzen oder besonders niedrige Werte wären eine Möglichkeit frühzeitig Angriffe zu erkennen.\\
-Die Reaktion auf einen identifizierten Angriff sollte nun in unterschiedlichen Eskalationsstufen, durch die Ereignissenke erfolgen. Weißen bspw. nur einzelne Stromregler Unauffälligkeiten auf, reicht eine Warnmeldung an die zuständigen Instanzen und eine Überprüfung der Fehlerquelle. Sollten hingegen großflächig Unregelmäßigkeiten auftreten wodurch die Stabilität des Netzes gefährdet wird, müssen betroffene Bereiche automatisiert vom Netz getrennt werden um einen Blackout vermeiden zu können. Die Smart Meter verschicken die Daten zur Analyse asynchron, subscriben würden diejenigen Einrichtungen die zur Steuerung des Betroffenen Ausschnitts aus dem Stromnetz verantwortlich sind.\\
+Die Reaktion auf einen identifizierten Angriff sollte nun in unterschiedlichen Eskalationsstufen, durch die Ereignissenke erfolgen. Weißen beispielsweise nur einzelne Stromregler Unauffälligkeiten auf, reicht eine Warnmeldung an die zuständigen Instanzen und eine Überprüfung der Fehlerquelle. Sollten hingegen großflächig Unregelmäßigkeiten auftreten wodurch die Stabilität des Netzes gefährdet wird, müssen betroffene Bereiche automatisiert vom Netz getrennt werden um einen Blackout vermeiden zu können. Die Smart Meter verschicken die Daten zur Analyse asynchron, subscriben würden diejenigen Einrichtungen, die zur Steuerung des Betroffenen Ausschnitts aus dem Stromnetz verantwortlich sind.\\
 Eine EDA hätte also möglicherweise führen können, den Cyberangriff auf die Smart Meter als solchen zu identifizieren und den Europaweiten Blackout ggfs. auf lokale Blackouts reduzieren können.
 
 
@@ -106,14 +106,14 @@ Benutzeranfragen werden weltweit zufällig eingereicht und müssen einer Virtual
     \label{fig:LoadBalancing}
 \end{figure}
 
-Es gibt verschiedene Arten von Load Balancing Algorithmen. Grob werden die Algorithmen aufgrund zwei verschiedener Faktoren eingeteilt: dem Zustand des Systems und der Person, die den Prozess initiert hat. 
+Es gibt verschiedene Arten von Load Balancing Algorithmen. Grob werden die Algorithmen aufgrund zwei verschiedener Faktoren eingeteilt: dem Zustand des Systems und der Person, die den Prozess initiiert hat. 
 Ersteres unterteilt sich weiter in statische und dynamische Algorithmen. Statische Algorithmen sind beispielsweise Round Robin, Min-Min oder Min Max Algorithmen. Diese setzen voraus, dass alle Systeminformationen im voraus bekannt sind. Ein Beispiel für einen dynamischen Algorithmus ist der Ant Colony Optimazation Algorithmus. Dynamische Algorithmen passen sich an die aktuelle Systemlast an und reagieren auf Änderungen in Echtzeit. 
 
 Staische Algorithmen werden weiter in optimale und sub-optimale Algorithmen unterteilt. Optimal bedeutet, dass der Lastverteiler eine optimale Entscheidung basierend auf den vorhandenen Daten trifft. Sub-optimale Algorithmen treffen eine gute, aber nicht perfekte Entscheidung. Diese Algorithmen können heuristische oder approximative Methoden verwenden, um anpassungsfähige Entscheidungen zu treffen. Heuristische Methoden schätzen die Lösung basierend auf Erfahrungswerten, approximative Ansätze versuchen mathematisch nah an die optimale Lösung heranzukommen. 
 
 Dynamische Algorithmen können weiter in verteilte und nicht-verteilte Klassen unterteilt werden. Bei den verteilten Algorithmen führen alle Knoten den Algorithmus aus und die Verteilung der Last ist zwischen den Knoten aufgeteilt. Zwischen den Knoten kann entweder eine kooperative oder nicht-kooperative Interaktion stattfinden. Bei der kooperativen Interaktion arbeiten die Knoten zusammen um das Ziel gemeinsam zu erreichen. Bei der nicht-kooperativen Interaktion verfolgt jeder Knoten sein eigenes lokales Ziel. Die nicht-verteilten dynamischen Algorithmen werden in zentralisierte und semi-verteilte Algorithmen unterteilt. Zentralisiert bedeutet, dass ein einzelner Knoten die Lastverteilung übernimmt. Semi-verteilt bedeutet, dass die Knoten in Gruppen organisiert sind und jeder Cluster einen zentralen Knoten hat, der für die Lastverteilung zuständig ist. 
 \newline
-Algorithmen, die von einer Person/einem Prozess initiert werden können entweder Sender-initiiert, Empfänger-initiiert oder symmetrisch sein.
+Algorithmen, die von einer Person/einem Prozess initiiert werden können entweder Sender-initiiert, Empfänger-initiiert oder symmetrisch sein.
 Sender-initiiert bedeutet, dass Entscheidungen bei der Erstellung neuer Aufgaben getroffen werden. Empfänger-initiiert beudetet, dass Entscheidungen erfolgen, wenn Aufgaben abgeschlossen werden. Symmetrisch bedeutet, dass sowohl Sender als auch Empfänger Entscheidungen treffen können. \cite[S. 3]{LoadBalancing}
 
 \subsection{Load Balancing zur Netzstabilität - Blackout}
