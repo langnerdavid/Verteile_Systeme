@@ -8,7 +8,21 @@
 \usepackage{setspace} 
 \usepackage{parskip} 
 \usepackage{graphicx} 
-\usepackage[hidelinks]{hyperref}
+
+\usepackage[printonlyused,withpage]{acronym}
+
+\usepackage{hyperref}
+\usepackage{xcolor}
+\definecolor{linkblue}{HTML}{2e02a1} % RGB-Werte für Links
+\definecolor{citegreen}{HTML}{009c2e} % RGB-Werte für Zitate
+\definecolor{urlred}{HTML}{808080} % RGB-Werte für URLs
+
+\hypersetup{
+    colorlinks=true,       % Aktiviert farbige Links
+    linkcolor=urlred,        % Farbe für interne Links (z.B. Inhaltsverzeichnis)
+    citecolor=citegreen,       % Farbe für Zitate
+    urlcolor=linkblue           % Farbe für URLs
+}
 
 
 
@@ -29,23 +43,27 @@
 \onehalfspacing 
 
 \maketitle
-
+\pagenumbering{roman}
 \newpage 
 \tableofcontents
+\newpage
+\listoffigures 
 \newpage 
+\include{Acronyms}
+\newpage
 \pagestyle{plain}
 \pagenumbering{arabic}
 
 
 \section{Einführung Blackout}
-In dem Buch "'Blackout – Morgen ist es zu spät"' von Marc Elsberg wird das fiktive Szenario eines europaweiten Stromausfalls beschrieben. Verursacht wird dieser durch die Manipulation der sogenannten Smart Meter. Dabei handelt es sich um intelligente Stromzähler, die Daten zum Verbrauch (und ggf. auch zur Erzeugung) an die Netzbetreiber übermitteln. Diese Daten ermöglichen es, Angebot und Nachfrage im Stromnetz effizienter zu regeln, was zu einer erhöhten Netzstabilität führt \cite{SmartMeter}. \\
-Im Buch werden diese Smart Meter jedoch für einen Angriff auf das Stromnetz missbraucht, indem gefälschte Verbrauchsdaten an die Netzbetreiber gesendet werden. Diese simulierten Verbrauchsspitzen führen zu einem Abfall der Netzfrequenz. Sinkt die Netzfrequenz unter 49 Hz, werden Teile des Stromnetzes automatisch getrennt, um das System zu stabilisieren. Fällt die Frequenz weiter unter 47,5 Hz, trennen sich alle entsprechenden Netzsegmente vollständig vom Stromnetz, um größere Schäden zu vermeiden und anschließend die Stromversorgung neu aufzubauen \cite{Netzfrequenz}. Genau dies geschieht in "'Blackout"': Der Stromausfall beginnt in Norditalien. Aufgrund der engen Vernetzung der europäischen Stromnetze, die den Stromhandel und die Versorgungssicherheit gewährleisten sollen, weitet sich der Blackout von Italien auf Zentraleuropa und schließlich auf das gesamte europäische Stromnetz aus.\\
-Zwar versuchen die betroffenen Länder immer wieder, die Stromversorgung neu aufzubauen, doch diese Bemühungen scheitern, da die Smart Meter kontinuierlich manipulierte Daten senden und somit eine stabile Frequenzregulierung verhindern. Dies führt zu einem nahezu zweiwöchigen Stromausfall in weiten Teilen Europas.\\
-Das Buch "'Blackout"' verdeutlicht die Abhängigkeit moderner Gesellschaften von vernetzten Infrastrukturen und zeigt die Risiken auf, die durch Angriffe auf solche entstehen können. Gleichzeitig bietet es eine Grundlage, um die Rolle und Potenziale von Konzepten der Verteilten Systeme zu analysieren. Diese können präventiv eingesetzt werden, um solche Szenarien zu verhindern oder deren Auswirkungen abzumildern. Im Folgenden werden drei zentrale Konzepte vernetzter Systeme – Event-Driven Architecture, Load Balancing und die Vermeidung von Single Points of Failure – näher beleuchtet, um die Brücke zwischen dem Buch und den Methoden verteilter Systeme zu schlagen.
+In dem Buch "'Blackout – Morgen ist es zu spät"' von Marc Elsberg wird das fiktive Szenario eines europaweiten Stromausfalls beschrieben. Verursacht wird dieser durch die Manipulation der sogenannten \acp{SM}. Dabei handelt es sich um intelligente Stromzähler, die Daten zum Verbrauch (und ggf. auch zur Erzeugung) an die Netzbetreiber übermitteln. Diese Daten ermöglichen es, Angebot und Nachfrage im Stromnetz effizienter zu regeln, was zu einer erhöhten Netzstabilität führt \cite{SmartMeter}. \\
+Im Buch werden diese \acp{SM} jedoch für einen Angriff auf das Stromnetz missbraucht, indem gefälschte Verbrauchsdaten an die Netzbetreiber gesendet werden. Diese simulierten Verbrauchsspitzen führen zu einem Abfall der Netzfrequenz. Sinkt die Netzfrequenz unter 49 Hz, werden Teile des Stromnetzes automatisch getrennt, um das System zu stabilisieren. Fällt die Frequenz weiter unter 47,5 Hz, trennen sich alle entsprechenden Netzsegmente vollständig vom Stromnetz, um größere Schäden zu vermeiden und anschließend die Stromversorgung neu aufzubauen \cite{Netzfrequenz}. Genau dies geschieht in "'Blackout"': Der Stromausfall beginnt in Norditalien. Aufgrund der engen Vernetzung der europäischen Stromnetze, die den Stromhandel und die Versorgungssicherheit gewährleisten sollen, weitet sich der Blackout von Italien auf Zentraleuropa und schließlich auf das gesamte europäische Stromnetz aus.\\
+Zwar versuchen die betroffenen Länder immer wieder, die Stromversorgung neu aufzubauen, doch diese Bemühungen scheitern, da die \acp{SM} kontinuierlich manipulierte Daten senden und somit eine stabile Frequenzregulierung verhindern. Dies führt zu einem nahezu zweiwöchigen Stromausfall in weiten Teilen Europas.\\
+Das Buch "'Blackout"' verdeutlicht die Abhängigkeit moderner Gesellschaften von vernetzten Infrastrukturen und zeigt die Risiken auf, die durch Angriffe auf solche entstehen können. Gleichzeitig bietet es eine Grundlage, um die Rolle und Potenziale von Konzepten der Verteilten Systeme zu analysieren. Diese können präventiv eingesetzt werden, um solche Szenarien zu verhindern oder deren Auswirkungen abzumildern. Im Folgenden werden drei zentrale Konzepte vernetzter Systeme – \ac{EDA}, Load Balancing und die Vermeidung von \acp{SPOF} – näher beleuchtet, um die Brücke zwischen dem Buch und den Methoden verteilter Systeme zu schlagen.
 
-\section{Event Driven Architecture}
+\section{\ac{EDA}}
 \subsection{Grundlagen und Prinzipien}
-Die Event Drive Architecture ist ein Architekturstil, der zu einer höheren Effizienz in Anwendungen führt. Dabei stehen Ereignisse im Vordergrund. Ereignisse beziehen sich auf die Veränderung eines Zustandes wie zum Beispiel die Veränderung einer gemessen Temperatur oder der Eingang eines HTTP Requests.
+Die \ac{EDA} ist ein Architekturstil, der zu einer höheren Effizienz in Anwendungen führt. Dabei stehen Ereignisse im Vordergrund. Ereignisse beziehen sich auf die Veränderung eines Zustandes wie zum Beispiel die Veränderung einer gemessen Temperatur oder der Eingang eines HTTP Requests.
 Als ereignisgesteuert (event-driven) gilt ein System, wenn Aktionen innerhalb dieses Systems nicht einer festen Abfolge entsprechen, sondern immer dynamisch eine Reaktion auf das Eintreffen eines Ereignisses ausgeführt werden.
 Der zentrale Ablauf von ereignisgesteuerten Systemen besteht aus drei Schritten: erkennen, verarbeiten und reagieren. \cite[S. 48f]{Bruns2010}
 
@@ -68,7 +86,7 @@ Abbildung \ref{fig:Verarbeitungsmodell} veranschaulicht das Modell.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Verarbeitungsmodell.png}
-    \caption{Verarbeitungsmodell der Event Driven Architecture \cite[S. 52]{Bruns2010}}
+    \caption{Verarbeitungsmodell der \ac{EDA} \cite[S. 52]{Bruns2010}}
     \label{fig:Verarbeitungsmodell}
 \end{figure}
 
@@ -86,19 +104,19 @@ Abbildung \ref{fig:PubSub} veranschaulicht das Modell.
 \end{figure}
 Push-Modus: Die Initiative zur Interaktion geht immer von der Ereignisquelle aus, die den Zeitpunkt des Nachrichtenaustauschs bestimmt. Dieses push-basierte Modell ermöglicht eine hohe Entkopplung zwischen den Komponenten und fördert so die Skalierbarkeit und Interoperabilität des Systems. \cite [S. 53f]{Bruns2010}
 \subsection{Beispielanwendungen in Bezug auf Blackout}
-In Blackout wurden wie eingangs beschrieben, Schadcodes über die intelligenten Stromzähler versendet, wodurch unregelmäßige Stromverbräuche simuliert wurden. Im Kontext der Event Driven Architecture, wäre hier ein Frühwarnsystem denkbar. Die Daten der Smart Meter würden hierbei als Ereignisquelle dienen. Um gezielt Angriffe erkennen zu können, muss hierbei überwacht werden, welcher Stromzähler zu welchen Zeitpunkten und in welchen Intervallen Daten sendet.\\
+In Blackout wurden wie eingangs beschrieben, Schadcodes über die \acp{SM} versendet, wodurch unregelmäßige Stromverbräuche simuliert wurden. Im Kontext der \ac{EDA}, wäre hier ein Frühwarnsystem denkbar. Die Daten der \acp{SM} würden hierbei als Ereignisquelle dienen. Um gezielt Angriffe erkennen zu können, muss hierbei überwacht werden, welcher Stromzähler zu welchen Zeitpunkten und in welchen Intervallen Daten sendet.\\
 Anhand des übermittelten Ereignisses muss nun analysiert werden, ob Abweichungen vom normalen Betrieb zu identifizieren sind. Dafür könnten beispielsweise stark abweichende Verbrauchsmuster oder unerwartete Datenmuster als Indikatoren verwendet werden. Starke Lastspitzen oder besonders niedrige Werte wären eine Möglichkeit, frühzeitig Angriffe zu erkennen.\\
-Die Reaktion auf einen identifizierten Angriff sollte nun in unterschiedlichen Eskalationsstufen durch die Ereignissenke erfolgen. Weisen beispielsweise nur einzelne Stromregler Unauffälligkeiten auf, reicht eine Warnmeldung an die zuständigen Instanzen und eine Überprüfung der Fehlerquelle. Sollten hingegen großflächig Unregelmäßigkeiten auftreten, wodurch die Stabilität des Netzes gefährdet wird, müssen betroffene Bereiche automatisiert vom Netz getrennt werden, um einen Blackout vermeiden zu können. Die Smart Meter verschicken die Daten zur Analyse asynchron, subscriben würden diejenigen Einrichtungen, die zur Steuerung des Betroffenen Ausschnitts aus dem Stromnetz verantwortlich sind.\\
-Eine EDA hätte also möglicherweise dazu führen können, den Cyberangriff auf die Smart Meter als solchen zu identifizieren und den Europaweiten Blackout ggfs. auf lokale Blackouts zu reduzieren.
+Die Reaktion auf einen identifizierten Angriff sollte nun in unterschiedlichen Eskalationsstufen durch die Ereignissenke erfolgen. Weisen beispielsweise nur einzelne Stromregler Unauffälligkeiten auf, reicht eine Warnmeldung an die zuständigen Instanzen und eine Überprüfung der Fehlerquelle. Sollten hingegen großflächig Unregelmäßigkeiten auftreten, wodurch die Stabilität des Netzes gefährdet wird, müssen betroffene Bereiche automatisiert vom Netz getrennt werden, um einen Blackout vermeiden zu können. Die \acp{SM} verschicken die Daten zur Analyse asynchron, subscriben würden diejenigen Einrichtungen, die zur Steuerung des Betroffenen Ausschnitts aus dem Stromnetz verantwortlich sind.\\
+Eine \ac{EDA} hätte also möglicherweise dazu führen können, den Cyberangriff auf die \acp{SM} als solchen zu identifizieren und den Europaweiten Blackout ggfs. auf lokale Blackouts zu reduzieren.
 
 
 \section{Load Balancing}
 \subsection{Grundlagen und Funktionsweise}
 In Abbildung \ref{fig:LoadBalancing} ist ein beispielhaftes Modell des Load Balancing in der Cloud dargestellt. Load Balancing ist ein Verfahren, bei dem die Last auf mehrere Systeme verteilt wird, um die Leistung, Zuverlässigkeit und Verfügbarkeit eines Systems zu verbessern.
-Ein Load Balancer erhält eine Anfrage von einem Client und entscheidet anhand Algorithmen, welcher Server oder Virtual Machine die Anfrage bearbeiten soll. 
-Der \textit{Data Center Controller} verwaltet die Aufgaben, die an den Load Balancer übergeben werden. Dieser verwendet Algorithmen, um die Aufgaben an geeignete Virtual Machines zuzuweisen.
+Ein Load Balancer erhält eine Anfrage von einem Client und entscheidet anhand Algorithmen, welcher Server oder \acp{VM} die Anfrage bearbeiten soll. 
+Der \textit{Data Center Controller} verwaltet die Aufgaben, die an den Load Balancer übergeben werden. Dieser verwendet Algorithmen, um die Aufgaben an geeignete \acp{VM} zuzuweisen.
 
-Benutzeranfragen werden weltweit zufällig eingereicht und müssen einer Virtual Machine zur Bearbeitung zugewiesen werden. Eine ungleichmäßige Auslastung der Virtual Machines kann die Servicequalität negativ beeinflussen. Ein \textit{Hypervisor} oder \textit{Virtual Machine Monitor} spielt dabei eine zentrale Rolle, da er die Erstellung und Verwaltung von Virtual Machines ermöglicht und Funktionen wie Multiplexing, Speicherung, Wiederaufnahme von zuvor gespeicherten Virtual Machines und Live-Migration zu einem anderen Host bereitstellt. \cite[S. 2]{LoadBalancing}
+Benutzeranfragen werden weltweit zufällig eingereicht und müssen einer \ac{VM} zur Bearbeitung zugewiesen werden. Eine ungleichmäßige Auslastung der \acp{VM} kann die Servicequalität negativ beeinflussen. Ein \textit{Hypervisor} oder \textit{\ac{VM} Monitor} spielt dabei eine zentrale Rolle, da er die Erstellung und Verwaltung von \acp{VM} ermöglicht und Funktionen wie Multiplexing, Speicherung, Wiederaufnahme von zuvor gespeicherten \acp{VM} und Live-Migration zu einem anderen Host bereitstellt. \cite[S. 2]{LoadBalancing}
 
 \begin{figure}[h]
     \centering
@@ -118,30 +136,30 @@ Algorithmen, die von einer Person/einem Prozess initiiert werden, können entwed
 Sender-initiiert bedeutet, dass Entscheidungen bei der Erstellung neuer Aufgaben getroffen werden. Empfänger-initiiert beudetet, dass Entscheidungen erfolgen, wenn Aufgaben abgeschlossen werden. Symmetrisch bedeutet, dass sowohl Sender als auch Empfänger Entscheidungen treffen können. \cite[S. 3]{LoadBalancing}
 
 \subsection{Load Balancing zur Netzstabilität - Blackout}
-Im Abschnitt EDA wurde bereits dargestellt, dass eine Analyse der Smart Meter-Daten möglicherweise zu einem abgeschwächten Stromausfall geführt hätte. Load Balancing bietet in Ergänzung mit EDA eine Möglichkeit, die Daten von den (potenziell) über 40 Millionen \cite{Haushalte} Smart Metern in Deutschland möglichst in Echtzeit zu analysieren. Damit würde Load Balancing ermöglichen, Abweichungen schnell zu erkennen und sofort darauf zu reagieren. So könnten in einem dynamischen, sich schnell verändernden Netz kritische Belastungen frühzeitig identifiziert und vermieden werden.\\
+Im Abschnitt \ac{EDA} wurde bereits dargestellt, dass eine Analyse der \acp{SM}-Daten möglicherweise zu einem abgeschwächten Stromausfall geführt hätte. Load Balancing bietet in Ergänzung mit \ac{EDA} eine Möglichkeit, die Daten von den (potenziell) über 40 Millionen \cite{Haushalte} \acp{SM} in Deutschland möglichst in Echtzeit zu analysieren. Damit würde Load Balancing ermöglichen, Abweichungen schnell zu erkennen und sofort darauf zu reagieren. So könnten in einem dynamischen, sich schnell verändernden Netz kritische Belastungen frühzeitig identifiziert und vermieden werden.\\
 Ein solches System würde zudem ein prinzipiell stabileres Netz gewährleisten, indem die Stromnachfrage und das Angebot in Echtzeit optimal aufeinander abgestimmt werden. Dies ist besonders in Zeiten schwankender Energieerzeugung und -nachfrage wichtig, etwa bei der Integration erneuerbarer Energien. Durch Load Balancing könnte eine Überlastung von Netzabschnitten verhindert und die Energieeffizienz maximiert werden.\\
 Darüber hinaus erhöht ein solches System die Resilienz des Stromnetzes gegen plötzliche Störungen. Im Falle eines gezielten Angriffs, etwa auf zentrale Steuerungseinheiten, oder einer technischen Fehlfunktion, könnte das Load-Balancing-System automatisch alternative Lastverteilungen und Ausweichrouten schaffen. Diese Maßnahmen würden dazu beitragen, die Stromversorgung in kritischen Bereichen aufrechtzuerhalten und die Auswirkungen eines Blackouts zu minimieren. Besonders in einem Szenario wie im Buch \textit{Blackout} wäre ein solches Load-Balancing-System ein wichtiger Schutzmechanismus, um die Systemstabilität auch bei unerwarteten Ereignissen zu sichern.
 
-\section{Single Point of Failure}
+\section{\ac{SPOF}}
 
-Ein SPOF ist eine Komponente eines Systems, deren Ausfall oder Defekt dazu führen kann, dass das gesamte System nicht mehr funktioniert. In verteilten Systemen stellen SPOFs ein erhebliches Risiko für die Verfügbarkeit, Zuverlässigkeit und Sicherheit dar. Daher ist es wichtig SPOFs zu erkennen und zu beseitigen. 
+Ein \ac{SPOF} ist eine Komponente eines Systems, deren Ausfall oder Defekt dazu führen kann, dass das gesamte System nicht mehr funktioniert. In verteilten Systemen stellen \acp{SPOF} ein erhebliches Risiko für die Verfügbarkeit, Zuverlässigkeit und Sicherheit dar. Daher ist es wichtig \acp{SPOF} zu erkennen und zu beseitigen. 
 
-\subsection{Ursachen und Risiken von SPOFs}
-SPOFs entstehen häufig durch unzureichende Planung und Strukturierung. Eine häufige Ursache ist die Zentralisierung von Steuerungsinstanzen: Wenn Teilnehmer in einem verteilten System ohne eine zentrale Komponente wie eine Master-Node oder einen Hauptserver nicht eigenständig agieren können, wird diese Komponente zum SPOF. Fällt diese zentrale Stelle aus, führt dies zum Zusammenbruch des gesamten Systems \cite[S. 253f.]{Steen2006}.\\
+\subsection{Ursachen und Risiken von \acp{SPOF}}
+\acp{SPOF} entstehen häufig durch unzureichende Planung und Strukturierung. Eine häufige Ursache ist die Zentralisierung von Steuerungsinstanzen: Wenn Teilnehmer in einem verteilten System ohne eine zentrale Komponente wie eine Master-Node oder einen Hauptserver nicht eigenständig agieren können, wird diese Komponente zum SPOF. Fällt diese zentrale Stelle aus, führt dies zum Zusammenbruch des gesamten Systems \cite[S. 253f.]{Steen2006}.\\
 Ein weiterer Faktor ist das Fehlen von Redundanz. Kritische Komponenten wie Datenbanken oder Kommunikationskanäle, die nicht durch Alternativen abgesichert sind, können bei einem Ausfall Systemfehler verursachen. Beispielsweise benötigen Stromnetze redundante Übertragungssysteme \cite[S. 61f.]{Jarass2009}. Auch Abhängigkeiten von einzelnen Technologien oder Dienstleistern erhöhen das Risiko. 
 
 
-\subsection{Strategien zur Vermeidung von SPOFs}
+\subsection{Strategien zur Vermeidung von \acp{SPOF}}
 
-Damit SPOFs vermieden werden können, müssen SPOFs zuerst identifiziert werden, um entsprechende Gegenmaßnhamen vorzunehmen. Die Prozess der Identifikation von SPOFs beginnt bereits in der Planungsphase des Systems und wird beim Betrieb und jeder Änderung des Systems fortgeführt. Zur Identifikation gehören folgende Strategien:
+Damit \acp{SPOF} vermieden werden können, müssen \acp{SPOF} zuerst identifiziert werden, um entsprechende Gegenmaßnhamen vorzunehmen. Die Prozess der Identifikation von \acp{SPOF} beginnt bereits in der Planungsphase des Systems und wird beim Betrieb und jeder Änderung des Systems fortgeführt. Zur Identifikation gehören folgende Strategien:
 
 \begin{itemize}
-    \item \textbf{Architekturanalyse:} Die Systemarchitektur wird analysiert um Abhängigkeiten zu erkennen. Dabei helfen Architekturdiagramme SPOFs zu identifizieren. Dazu gehört auch die Identifikation von Abhängigkeiten von Drittanbietern, wie Cloud-Dienste.
+    \item \textbf{Architekturanalyse:} Die Systemarchitektur wird analysiert um Abhängigkeiten zu erkennen. Dabei helfen Architekturdiagramme \acp{SPOF} zu identifizieren. Dazu gehört auch die Identifikation von Abhängigkeiten von Drittanbietern, wie Cloud-Dienste.
     \item \textbf{Komponententests:} Der Ausfall einzelner Komponenten wird simuliert um dessen Auswirkung auf das Gesamtsystem zu bewerten.
     \item \textbf{Systemüberwachung:} Mithilfe von Monitoring-Daten werden häufig beanspruchte oder kritische Komponenten identifiziert. Des Weiteren wird das Netzwerk überwacht um Engpässe oder kritische Verbindungspunkte zu finden. 
 \end{itemize}
 
-Sobald die SPOF identifiziert sind, können sie durch folgende Strategien umgangen werden:
+Sobald die \ac{SPOF} identifiziert sind, können sie durch folgende Strategien umgangen werden:
 
 \begin{itemize}
     \item \textbf{Dezentralisierung:} Zentrale Steuerungsinstanzen werden vermieden, indem Funktionen auf mehrere Knoten verteilt werden, wie beispielsweise in Peer-to-Peer-Netzwerken.
@@ -151,11 +169,11 @@ Sobald die SPOF identifiziert sind, können sie durch folgende Strategien umgang
 \end{itemize}
 
 \subsection{Angriffe auf Systeme ohne SPOF}
-Systeme ohne SPOF bieten zwar einen besseren Schutz vor dem Ausfall einzelner Komponenten und gezielten Angriffen, sie sind jedoch nicht vollständig immun. Ein Angreifer könnte beispielsweise Failure Detectors manipulieren, um falsche Meldungen zu erzeugen. Dies kann dazu führen, dass korrekte Prozesse fälschlicherweise als ausgefallen markiert oder tatsächliche Fehler verschleiert werden. Auch "'eventually accurate"' Detektoren lassen sich so manipulieren, dass sie dauerhaft in einem Zustand der Unsicherheit bleiben. Es existieren jedoch Schutzmaßnahmen, die sicherstellen, dass trotz ungenauer Fehlererkennung keine Sicherheitsanforderungen verletzt werden. \cite{10.1145/1052796.1052806}
+Systeme ohne \ac{SPOF} bieten zwar einen besseren Schutz vor dem Ausfall einzelner Komponenten und gezielten Angriffen, sie sind jedoch nicht vollständig immun. Ein Angreifer könnte beispielsweise Failure Detectors manipulieren, um falsche Meldungen zu erzeugen. Dies kann dazu führen, dass korrekte Prozesse fälschlicherweise als ausgefallen markiert oder tatsächliche Fehler verschleiert werden. Auch "'eventually accurate"' Detektoren lassen sich so manipulieren, dass sie dauerhaft in einem Zustand der Unsicherheit bleiben. Es existieren jedoch Schutzmaßnahmen, die sicherstellen, dass trotz ungenauer Fehlererkennung keine Sicherheitsanforderungen verletzt werden. \cite{10.1145/1052796.1052806}
 
-\subsection{SPOF in Blakout}
+\subsection{\ac{SPOF} in Blakout}
 Das Buch \textit{Blackout} zeigt, wie essenziell ein funktionierendes Stromnetz für unsere moderne Gesellschaft ist. Ein Ausfall der Stromversorgung hätte gravierende Folgen: Die Lebensmittel- und Wasserversorgung kommt zum Erliegen, Krankenhäuser können nur noch für begrenzte Zeit ihren Betrieb aufrechterhalten – in vielen Fällen reicht die Notstromversorgung lediglich für 24 Stunden \cite{NotstromKrankenhaus}. Noch dramatischer gestaltet sich die Situation bei Kernkraftwerken, die oftmals lediglich eine Notstromversorgung von 10 Stunden gewährleisten können \cite[S. 11, Abschnitt 3.1.(9)]{NotstromAKWs}. Danach fallen die Kühlsysteme aus und es kann zu einem nuklearen Supergau kommen.
-Obwohl das Buch ein fiktives Szenario darstellt, wird die Sicherheit und der Datenschutz von Smart Metern häufig kritisch hinterfragt. Kritiker bemängeln insbesondere die potenziellen Risiken für die Netzstabilität sowie die möglichen Angriffsflächen für Cyberangriffe \cite{SmartMeterBlackout}, \cite{SmartMeterSicherheit}.
+Obwohl das Buch ein fiktives Szenario darstellt, wird die Sicherheit und der Datenschutz von \acp{SM} häufig kritisch hinterfragt. Kritiker bemängeln insbesondere die potenziellen Risiken für die Netzstabilität sowie die möglichen Angriffsflächen für Cyberangriffe \cite{SmartMeterBlackout}, \cite{SmartMeterSicherheit}.
 
 \bibliographystyle{plain}
 \bibliography{literatur}
