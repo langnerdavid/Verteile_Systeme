@@ -123,18 +123,12 @@ Darüber hinaus erhöht ein solches System die Resilienz des Stromnetzes gegen p
 
 \section{Single Point of Failure}
 
-\subsection{Einführung Single Point of Failure}
-
-Im Buch Blackout wird der Stromausfall durch einen Angriff auf zentrale Steuerungselemente ausgelöst. Dies führt zu einer Kaskade von Ausfällen, was zum Zusammenbruch des gesamten Netzes führt. Dieser Angriff zeigt, wie verwundbar verteilte Systeme durch einen sogenannten Single Point of Failure (SPOF) sind.
-
 Ein SPOF ist eine Komponente eines Systems, deren Ausfall oder Defekt dazu führen kann, dass das gesamte System nicht mehr Funktioniert. In verteilten Systemen stellen SPOFs ein erhebliches Risiko für die Verfügbarkeit, Zuverlässigkeit und Sicherheit. Daher ist es wichtig SPOFs zu erkennen und zu beseitigen. 
 
 \subsection{Ursachen und Risiken von SPOFs}
-SPOFs entstehen häufig durch unzureichende Planung und Strukturierung. Eine zentrale Ursache ist die Zentralisierung von Steuerungsinstanzen: Wenn Teilnehmer in einem verteilten System ohne eine zentrale Komponente wie eine Master-Node oder einen Hauptserver nicht eigenständig agieren können, wird diese Komponente zum SPOF. Fällt diese zentrale Stelle aus, führt dies zum Zusammenbruch des gesamten Systems \cite[S. 253f.]{Steen2006}.
-
+SPOFs entstehen häufig durch unzureichende Planung und Strukturierung. Eine häufige Ursache ist die Zentralisierung von Steuerungsinstanzen: Wenn Teilnehmer in einem verteilten System ohne eine zentrale Komponente wie eine Master-Node oder einen Hauptserver nicht eigenständig agieren können, wird diese Komponente zum SPOF. Fällt diese zentrale Stelle aus, führt dies zum Zusammenbruch des gesamten Systems \cite[S. 253f.]{Steen2006}.\\
 Ein weiterer Faktor ist das Fehlen von Redundanz. Kritische Komponenten wie Datenbanken oder Kommunikationskanäle, die nicht durch Alternativen abgesichert sind, können bei einem Ausfall Systemfehler verursachen. Beispielsweise benötigen Stromnetze redundante Übertragungssysteme \cite[S. 61f.]{Jarass2009}. Auch Abhängigkeiten von einzelnen Technologien oder Dienstleistern erhöhen das Risiko. 
 
-Neben dem Risiko, dass ein SPOF direkt zum kompletten Systemabsturz führen kann, gibt es noch weitere Risiken. Probleme bei einem SPOF können sich im ganzen System bemerkbar machen und zu weitreichende Auswirkungen führen. Des Weiteren sind SPOFs ein lukratives Angriffsziel, da durch einen erfolgreichen Angriff maximale Schäden angerichtet werden können.
 
 \subsection{Strategien zur Vermeidung von SPOFs}
 
@@ -156,7 +150,12 @@ Sobald die SPOF identifiziert sind, können sie durch folgende Strategien umgang
 \end{itemize}
 
 \subsection{Angriffe auf Systeme ohne SPOF}
-Systeme ohne SPOF bieten zwar einen besseren Schutz vor dem Ausfall einzelner Komponenten und gezielten Angriffen, sie sind jedoch nicht vollständig immun. Ein Angreifer könnte beispielsweise Failure Detectors manipulieren, um falsche Meldungen zu erzeugen. Dies kann dazu führen, dass korrekte Prozesse fälschlicherweise als ausgefallen markiert oder tatsächliche Fehler verschleiert werden. Auch "eventually accurate" Detektoren lassen sich so manipulieren, dass sie dauerhaft in einem Zustand der Unsicherheit bleiben. Es existieren jedoch Schutzmaßnahmen, die sicherstellen, dass trotz ungenauer Fehlererkennung keine Sicherheitsanforderungen verletzt werden. \cite{10.1145/1052796.1052806}
+Systeme ohne SPOF bieten zwar einen besseren Schutz vor dem Ausfall einzelner Komponenten und gezielten Angriffen, sie sind jedoch nicht vollständig immun. Ein Angreifer könnte beispielsweise Failure Detectors manipulieren, um falsche Meldungen zu erzeugen. Dies kann dazu führen, dass korrekte Prozesse fälschlicherweise als ausgefallen markiert oder tatsächliche Fehler verschleiert werden. Auch "'eventually accurate"' Detektoren lassen sich so manipulieren, dass sie dauerhaft in einem Zustand der Unsicherheit bleiben. Es existieren jedoch Schutzmaßnahmen, die sicherstellen, dass trotz ungenauer Fehlererkennung keine Sicherheitsanforderungen verletzt werden. \cite{10.1145/1052796.1052806}
+
+\subsection{SPOF in Blakout}
+Das Buch \textit{Blackout} zeigt, wie essenziell ein funktionierendes Stromnetz für unsere moderne Gesellschaft ist. Ein Ausfall der Stromversorgung hätte gravierende Folgen: Die Lebensmittel- und Wasserversorgung kommt zum Erliegen, Krankenhäuser können nur noch für begrenzte Zeit ihren Betrieb aufrechterhalten – in vielen Fällen reicht die Notstromversorgung lediglich für 24 Stunden \cite{NotstromKrankenhaus}. Noch dramatischer gestaltet sich die Situation bei Kernkraftwerken, die oftmals lediglich eine Notstromversorgung von 10 Stunden gewährleisten können \cite[S. 11, Abschnitt 3.1.(9)]{NotstromAKWs}. Danach fallen die Kühlsysteme aus und es kann zu einem nuklearen Supergau kommen.
+Obwohl das Buch ein fiktives Szenario darstellt, wird die Sicherheit und der Datenschutz von Smart Metern häufig kritisch hinterfragt. Kritiker bemängeln insbesondere die potenziellen Risiken für die Netzstabilität sowie die möglichen Angriffsflächen für Cyberangriffe \cite{SmartMeterBlackout}, \cite{SmartMeterSicherheit}.
+
 \bibliographystyle{plain}
 \bibliography{literatur}
 
